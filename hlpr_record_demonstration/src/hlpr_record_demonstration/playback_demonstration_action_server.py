@@ -81,7 +81,7 @@ class PlaybackKFDemoAction(object):
         self.gripper['right'] = Gripper(prefix='right') # Insert a 2nd gripper here with left if wanted
 
         # Set number of keyframes we'll execute
-        self.KEYFRAME_THRESHOLD = 30
+        self.KEYFRAME_THRESHOLD = 1000000
 
     def sendPlan(self,plannedTra):
         traj_goal = FollowJointTrajectoryGoal()

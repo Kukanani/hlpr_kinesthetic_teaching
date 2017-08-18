@@ -26,7 +26,10 @@ class KinestheticTeaching(Plugin):
             print 'arguments: ', args
             print 'unknowns: ', unknowns
 
+        default_location = rospy.get_param("bag_folder", "")
+
         self._widget = KinestheticTeachingWidget(context)
+        self._widget.setDemoLocation(default_location)
 
     def shutdown_plugin(self):
         # TODO unregister all publishers here

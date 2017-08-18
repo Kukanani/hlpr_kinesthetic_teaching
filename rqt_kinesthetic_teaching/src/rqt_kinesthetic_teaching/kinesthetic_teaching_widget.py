@@ -75,6 +75,9 @@ class KinestheticTeachingWidget(QWidget):
             self.enable_kinesthetic_service = rospy.ServiceProxy("kinesthetic_interaction", KinestheticInteract)
             self.enable_kinesthetic_service(True)
 
+
+            self.kinesthetic_interaction.should_locate_objects = self.locateObjectsBox.isChecked()
+
             # Register callbacks
             self.kinesthetic_interaction.start_trajectory_cb = self.startTrajectoryCallback
             self.kinesthetic_interaction.start_keyframe_cb = self.startKeyframeCallback
@@ -83,6 +86,9 @@ class KinestheticTeachingWidget(QWidget):
         except TimeoutException as err:
             self._showWarning("Record keyframe demo server unreachable", str(err))
         self.keyframeBagInterface = None
+
+    def setDemoLocation(self, location):
+        self.demoLocation.setText(location);
 
     def enableKI(self, state):
         enabled = state != 0
@@ -262,6 +268,7 @@ class KinestheticTeachingWidget(QWidget):
             self.kinesthetic_interaction.demonstration_start_trajectory(None)
         except rospy.service.ServiceException:
             self._showWarning("Object location unavailable", "The object_location service is unavailable and is required when \"Locate objects\" is checked. Launch it with `roslaunch object_location object_location_engine.launch`.")
+            self.startButton.setEnabled(True)
     def startTrajectoryCallback(self, success):
         if not success:
             self._showWarning("Could not start recording", "Failed to start trajectory recording. A recording is already in progress.")

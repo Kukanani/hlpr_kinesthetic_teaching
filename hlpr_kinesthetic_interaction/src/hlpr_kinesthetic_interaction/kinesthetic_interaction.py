@@ -61,23 +61,23 @@ class KinestheticInteraction:
     def __init__(self, verbose = True, is7DOF = False):
 
         # Get topic that we should be listening to for speech commands
-        self.sub_topic = rospy.get_param(SpeechListener.COMMAND_TOPIC_PARAM, None)
-        if self.sub_topic is None:
-            rospy.logerr("Exiting: No speech topic given, is speech listener running?")
-            exit()
+        # self.sub_topic = rospy.get_param(SpeechListener.COMMAND_TOPIC_PARAM, None)
+        # if self.sub_topic is None:
+        #     rospy.logerr("Exiting: No speech topic given, is speech listener running?")
+        #     exit()
 
         # Wait for speech listener
-        self.service_topic = rospy.get_param(SpeechListener.SERVICE_TOPIC_PARAM, None)
-        rospy.logwarn("Waiting for speech service")
-        rospy.wait_for_service(self.service_topic)
-        self.speech_service = rospy.ServiceProxy(self.service_topic, SpeechService) 
-        rospy.logwarn("Speech service loaded")
+        # self.service_topic = rospy.get_param(SpeechListener.SERVICE_TOPIC_PARAM, None)
+        # rospy.logwarn("Waiting for speech service")
+        # rospy.wait_for_service(self.service_topic)
+        # self.speech_service = rospy.ServiceProxy(self.service_topic, SpeechService) 
+        # rospy.logwarn("Speech service loaded")
 
         # Initialize speech dictionary
-        self._init_speech_dictionary()
+        # self._init_speech_dictionary()
 
         # Initialize speech synthesis
-        self.speech = speech_synthesizer.SpeechSynthesizer()
+        # self.speech = speech_synthesizer.SpeechSynthesizer()
         self.last_command = None
 
         # Set flag for whether we're in kinesthetic mode
@@ -95,8 +95,8 @@ class KinestheticInteraction:
         self.arm = self.arm_class(is7DOF)
 
         # Initialize callback for speech commands - do at the end to prevent unwanted behavior
-        self._msg_type = eval(rospy.get_param(SpeechListener.COMMAND_TYPE, None))
-        rospy.Subscriber(self.sub_topic, self._msg_type, self._speechCB, queue_size=1) 
+        # self._msg_type = eval(rospy.get_param(SpeechListener.COMMAND_TYPE, None))
+        # rospy.Subscriber(self.sub_topic, self._msg_type, self._speechCB, queue_size=1) 
 
         # Commands used in this base class
         self.k_mode_commands = ["open_hand", "close_hand", "start_gc", "end_gc", "keyframe_start", "keyframe", "keyframe_end"]
